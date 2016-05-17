@@ -20,6 +20,7 @@ gem "cancan"
 gem 'wkhtmltopdf-binary'
 gem 'wisepdf'
 gem 'roo', '~> 2.3.2'
+gem "chartkick"
 
 group :development, :test do
   gem 'debugger'

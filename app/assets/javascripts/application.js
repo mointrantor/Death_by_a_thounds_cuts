@@ -9,4 +9,5 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/TableTools
 //= require dataTables/extras/ZeroClipboard.js
+//= require chartkick
 //= require_tree .

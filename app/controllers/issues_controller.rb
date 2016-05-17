@@ -10,6 +10,12 @@ class IssuesController < ApplicationController
 		@users = all_users
 		@issues =  params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 		@serverty, @closed  = category(@issues)
+
+    @projects_by_issues = Project.all.map do |project| 
+      issues = Issues.where(:Project => project.ProjectName).size
+      [project.ProjectName, issues]
+    end
+    
 	end	
 
 
