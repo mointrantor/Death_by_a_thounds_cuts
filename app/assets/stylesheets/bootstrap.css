@@ -290,7 +290,9 @@ textarea {
 a {
   color: #428bca;
   text-decoration: none;
+  word-break: break-all;
 }
+
 a:hover,
 a:focus {
   color: #2a6496;

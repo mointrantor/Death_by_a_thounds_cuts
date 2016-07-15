@@ -38,8 +38,8 @@
           Issue Description<span class="required">*</span>
         </label>
         <div>
-          <textarea name="description" id="description" placeholder='Enter Description' class='cut-area' required>
-          </textarea>
+          <%= text_area_tag :description, nil, placeholder: 'Enter Description', class: 'cut-area', required: true %>
+          <span id='error-message' class='error-message'></span>
         </div> 
       </div>
 

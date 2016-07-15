@@ -108,12 +108,13 @@ $(document).ready(function(){
 		}
 	});
 
+	var description_field =  $('#new_issue_create_form #description');
 	$('#create_issue').on('click',function(){
 		var name = $('#issue_user_name').val();
 		var isClosed = false
 		var closedBy = '' 
 		var project =  $('#new_issue_create_form #project').val();
-		var description =  $('#new_issue_create_form #description').val(); 
+		var description =  description_field.val();
 		var mitigationPlan =  $('#new_issue_create_form #mitigationPlan').val();
 		var dateIdentified =  $('#new_issue_create_form #dateIdentified').val();
 		var dateResolved =  $('#new_issue_create_form #dateResolved').val();
@@ -141,7 +142,9 @@ $(document).ready(function(){
 		}
 
 		if(description.length == 0){
-			alert("Please Enter issue description ")
+			description_field.addClass('error-cuts-creation');
+			message = "Please Enter issue description";
+			$('#error-message').html(message)
 			return false;
 		}
 
@@ -353,4 +356,8 @@ $(document).ready(function(){
 		});
 	});
 
+	$('#create_new_issue').on('hide.bs.modal', function (e) {
+		description_field.removeClass('error-cuts-creation');
+		$('#error-message').html('');
+	})
 });
