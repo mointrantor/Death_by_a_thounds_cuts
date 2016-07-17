@@ -190,7 +190,12 @@ class IssuesController < ApplicationController
 			issues = issues + Issues.where(get_created_by_data(project)).all
 		end
     archived_projects = Project.archived
-    issues.select {|issue| !archived_projects.include?(issue.Project) }
+    issues = issues.select {|issue| !archived_projects.include?(issue.Project) }
+    unless current_user.isAdmin
+      assigned_projects = current_user.project_names
+      issues = issues.select {|issue| assigned_projects.include?(issue.Project) }
+    end
+    issues
 	end
 
   def query(project)
@@ -202,7 +207,7 @@ class IssuesController < ApplicationController
 
 	def get_created_by_data(project)
 		query = { isDeleted: false }
-		query.merge!(createdBy: current_user.Name)
+		#query.merge!(createdBy: current_user.Name) # show all project's issues that is assigned to current user
 		query.merge!(Project: project)  if project
 		query
 	end

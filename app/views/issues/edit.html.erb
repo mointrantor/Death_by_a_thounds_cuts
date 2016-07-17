@@ -10,7 +10,7 @@
 						<label class="" for="input01">Project<span class="required">*</span></label>  
 						<div class="s">
 							<% if true #current_user.isAdmin %>
-								<%= f.select :Project, options_for_select(projects, selected: @object_issues.Project ) %>
+								<%= f.select :Project, options_for_select(options_for_projects_select, selected: @object_issues.Project ) %>
 							<% else %>
 								<%= @object_issues.Project %>
 							<% end %>
