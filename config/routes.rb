@@ -7,7 +7,11 @@ ParseRailsBoilerplate::Application.routes.draw do
 
   resources :users do
     collection do
-      get :manage
+      match :manage, via: [:get, :post]
+    end
+
+    member do
+      get :assign_projects
     end
   end
   

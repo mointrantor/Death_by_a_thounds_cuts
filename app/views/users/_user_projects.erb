@@ -1,0 +1,12 @@
+<% if all_projects.any? %>
+  <% all_projects.each do |project| %>
+    <div>
+      <%= check_box_tag 'projects[]', project.objectId, @assigned_projects.include?(project.objectId) %>
+      <%= project.ProjectName %>
+    </div>
+  <% end %>
+<% else %>
+  <div>
+    No project found!
+  </div>
+<% end %>

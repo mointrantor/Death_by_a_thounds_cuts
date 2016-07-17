@@ -10,7 +10,8 @@ module ApplicationHelper
   end
 
   def options_for_projects_select(all = nil)
-    projects = Project.active
+    user = current_user || nil
+    projects = Project.active(user)
     projects.unshift('ALL') if all
     projects
   end

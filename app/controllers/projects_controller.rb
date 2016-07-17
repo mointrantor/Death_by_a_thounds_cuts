@@ -45,10 +45,10 @@ class ProjectsController < ApplicationController
 				@project.Archived = !@project.Archived
 				@project.save
 				flash.now[:notice] = 'Project archived successfully!'
-				format.js {render :archive}
+				format.js { render :archive }
 			else
 				flash.now[:error] = 'No project exist of this kind!'
-				format.js {render '/shared/ajax_error'}
+				format.js { render '/shared/ajax_error' }
 			end
     end
 

@@ -1,0 +1,27 @@
+<fieldset class="fieldset">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <%= form_tag manage_users_path, method: :post do %>
+          <div class="form-group">
+            <label>Select User<span class="required">*</span></label>
+            <%= select_tag 'user[name]', 
+              options_for_select(options_for_users_select, selected: @user.objectId),
+              id: 'user_option',
+              required: 'required'
+            %>
+          </div>
+          <div class='form-group'>
+            <label>Choose Projects</label>
+            <div id='options_user_projects'>
+              <%= render partial: 'user_projects', 
+                locals: { all_projects: @projects, assigned_projects: @assigned_projects }
+              %>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</fieldset>

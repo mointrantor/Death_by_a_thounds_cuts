@@ -7,8 +7,8 @@
 				<div class="form-group">
 					<label class="" for="input01">Project<span class="required">*</span></label>  
 					<div class="s">  
-						<%= f.text_field :ProjectName, required: 'required' %>
-					</div> 
+						<%= f.text_field :ProjectName, maxlength: 26 ,required: 'required' %>
+					</div>
 				</div>
 				<br />
 				<button type="submit" class="btn btn-primary" id="create_project_button">

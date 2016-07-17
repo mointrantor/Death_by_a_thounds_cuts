@@ -21,6 +21,10 @@ gem 'wkhtmltopdf-binary'
 gem 'wisepdf'
 gem 'roo', '~> 2.3.2'
 
+group :development do
+  gem 'quiet_assets'
+end
+
 group :development, :test do
   gem 'debugger'
 end

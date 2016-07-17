@@ -1,0 +1,4 @@
+$('#options_user_projects').fadeOut();
+$("#options_user_projects").empty()
+  .append("<%= escape_javascript(render(partial: 'user_projects', locals: { all_projects: @projects, assigned_projects: @assigned_projects })) %>");
+$('#options_user_projects').fadeIn(1000);

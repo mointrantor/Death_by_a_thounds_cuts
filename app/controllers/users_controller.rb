@@ -32,5 +32,35 @@ class UsersController < ApplicationController
       flash.now[:danger] = @user.errors.full_messages.first
       redirect_to edit_user_path
     end  
-  end  
+  end
+
+  def manage
+    @projects = Project.where(Archived: false).sort_by{|project| project.ProjectName }
+    if request.post?
+      @user = User.find(params[:user][:name])
+      if params[:projects] && params[:projects].any?
+        params[:projects].each do |pid|
+          UsersProjects.create(UserId: params[:user][:name], ProjectId: pid)
+        end
+      end
+    else
+      @user = current_user
+    end
+    @assigned_projects = @user.project_ids
+  end
+
+  def assign_projects
+    @user = User.find(params[:user_id]) rescue nil if params[:user_id].present?
+    respond_to do |format|
+      if @user
+        @projects = Project.where(Archived: false).sort_by{|project| project.ProjectName }
+        @assigned_projects = @user.project_ids
+        format.js { render :assign_projects }
+      else
+        flash.now[:error] = "Can not find user with ID #{params[:user_id]}"
+        format.js { render '/shared/ajax_error' }
+      end
+    end
+  end
+
 end

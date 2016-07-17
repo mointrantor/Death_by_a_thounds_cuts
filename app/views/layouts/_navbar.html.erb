@@ -19,6 +19,7 @@
         <li><%= link_to 'Dashboard', root_path %></li>
         <% if current_user.isAdmin %>
           <li><%= link_to 'Manage Projects', projects_path %></li>
+          <li><%= link_to 'Manage Users', manage_users_path %></li>
         <% end %>
         <li><a href="#create_new_issue" data-toggle = "modal" >Create New Cut</a></li>
         <li><a href="#import_new_issue" data-toggle = "modal" >Import Cuts</a></li>

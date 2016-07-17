@@ -4,7 +4,7 @@
   $("#flash_error_message").hide();
   $("#flash_create_message").show();
   
-  $('#project_list_create_form').prepend("<li class='list-group-item list-group-item-info'><%=@project.ProjectName%><a href='javascript:;' class='p-action delete_project' data_id=<%=@project.objectId%>> <span class='badge'>delete</span></a></li>");
+  $('#project_list_create_form').prepend("<li class='list-group-item list-group-item-info'><%=@project.ProjectName%><a href='javascript:;' class='p-action delete_project' data_id=<%=@project.objectId%>> <span class='badge'>Delete</span></a></li>");
 
   $('<option>').val("<%=@project.ProjectName%>").text("<%=@project.ProjectName%>").appendTo($('#new_issue_create_form #project'));
 <% end %>
