@@ -45,6 +45,7 @@ class UsersController < ApplicationController
             UsersProjects.create(UserId: @user.objectId, ProjectId: pid)
           end
         end
+        flash[:notice] = 'Projects assinged to user successfully'
       end
     else
       @user = current_user
