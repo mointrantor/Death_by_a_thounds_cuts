@@ -37,10 +37,13 @@ class UsersController < ApplicationController
   def manage
     @projects = Project.where(Archived: false).sort_by{|project| project.ProjectName }
     if request.post?
-      @user = User.find(params[:user][:name])
-      if params[:projects] && params[:projects].any?
-        params[:projects].each do |pid|
-          UsersProjects.create(UserId: params[:user][:name], ProjectId: pid)
+      @user = User.find(params[:user][:name]) rescue nil
+      if @user
+        UsersProjects.where(UserId: @user.objectId).each {|up| up.destroy}
+        if params[:projects] && params[:projects].any?
+          params[:projects].each do |pid|
+            UsersProjects.create(UserId: @user.objectId, ProjectId: pid)
+          end
         end
       end
     else
