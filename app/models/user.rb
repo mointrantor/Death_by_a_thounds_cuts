@@ -11,7 +11,7 @@ class User < ParseUser
 	EMAILNOTIFYMAIN = ["rajat.julka@trantorinc.com","pradeep@trantorinc.com"]
 
   def self.active
-    User.all
+    User.all.sort_by{|user| user.Name }
   end
 
   def projects
