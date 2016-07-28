@@ -29,6 +29,7 @@
           <li><%= link_to 'Report', report_issues_path %></li>
         <% end %>
         <li><%= link_to 'Logout', log_out_path %></li>
+        <li><%= link_to "Hi #{current_user.short_name}", '#' %></li>
       </ul>
     </div>
   </div>

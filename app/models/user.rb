@@ -3,7 +3,8 @@ class User < ParseUser
 	alias :email :username
 
 	fields :username, :Name, :password, :email
-	validates :username, :Name, :password, :email, presence: true
+	validates :username, :Name, :email, presence: true
+  validates :password, length: { minimum: 6 }, allow_blank: true
 	validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   
 	EMAILNOTIFYTEST = ["nitish.verma@trantorinc.com","kapil.handa@trantorinc.com"]
@@ -28,6 +29,11 @@ class User < ParseUser
       pnames << project.ProjectName if project
     end
     pnames
+  end
+
+  def short_name
+    user = self.Name.present? ? self.Name.split(' ').first : ''
+    user.capitalize
   end
 
 end

@@ -15,9 +15,6 @@
     <%= render 'layouts/flash_messages' %>
 
     <div class="container-fluid container-root">
-      <% if current_user %>
-        <span id="welcome">Hi, <%= current_user.Name %></span>
-      <% end -%>
     	<%= yield %>
       <% if current_user %>
         <input type="hidden" id="issue_user_name" value=<%= current_user.username %>>

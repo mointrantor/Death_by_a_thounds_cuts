@@ -170,9 +170,9 @@ class IssuesController < ApplicationController
 
 	def destroy 
 		issue = Issues.find_by_objectId(params[:id])
-		issue_create = issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
+		issue_create = issue.update_attributes(isDeleted: true ,deletedBy: current_user.Name, lastUpdatedBy: current_user.Name) if issue
 
-    assigned_user_id = User.find_by_Name(issue.assignedTo).objectId
+    #assigned_user_id = User.find_by_Name(issue.assignedTo).objectId
 		if issue_create
 			# send_notification "delete", issue, assigned_user_id
 			mark_unread issue.objectId
