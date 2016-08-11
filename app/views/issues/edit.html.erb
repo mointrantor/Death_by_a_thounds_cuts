@@ -50,27 +50,31 @@
 					</div>
 				</div>
 
-				<div class="col-sm-12 create_cut_field">
-					<div class="col-sm-12">
-						<label for="input01">Comments</label>
-						<div>
-							<%= text_area_tag "issues[CommentsArray]", nil, rows: "3", cols: "50", style: "width: 100%;" %>
+				<% if false %>
+					<div class="col-sm-12 create_cut_field">
+						<div class="col-sm-12">
+							<label for="input01">Comments</label>
+							<div>
+								<%= text_area_tag "issues[CommentsArray]", nil, rows: "3", cols: "50", style: "width: 100%;" %>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="col-sm-12">
+				<% end -%>
+					
 					<div class="col-sm-12">
-						<button type="submit" class="btn btn-primary">Update</button>
-						<%= link_to "Cancel", '/', class: "btn btn-primary" %>
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-primary">Update</button>
+							<%= link_to "Cancel", '/', class: "btn btn-primary" %>
+						</div>
 					</div>
-				</div>
 
-				<div class="col-sm-12">
-					<% unless @object_issues.CommentsArray.blank? %>
-						<% render partial: 'comments', locals: {comments: @object_issues.CommentsArray } %>
-					<% end %>
-				</div>
+				<% if false %>
+					<div class="col-sm-12">
+						<% unless @object_issues.CommentsArray.blank? %>
+							<% render partial: 'comments', locals: {comments: @object_issues.CommentsArray } %>
+						<% end %>
+					</div>
+				<% end -%>
 				
 			</div> 
 		<% end %> <!--Form End-->
