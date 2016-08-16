@@ -12,7 +12,7 @@
   }
 </style>
 
-<div class = "project_list_div">
+<div class="project_list_div">
   <div class="panel panel-primary">
     <div class="panel-heading">Cuts</div>
     
@@ -45,10 +45,10 @@
         <tr style="background-color: #F1EEEE;">
           <th width="5%">Severity</th>
           <th style="width: 75px !important;">Severity</th>
-          <th width="60%">Issue Description</th>
+          <th width="50%">Issue Description</th>
           <th width="20%">Project</th>
-          <th class="hide">Created By</th>
-          <th class="hide">Assigned To</th>
+          <th width="5%">Date Reported</th>
+          <th width="5%">Date Resolved</th>
           <th width="7%">Status</th>
           <th width="8%">Action</th>
         </tr>
@@ -66,12 +66,14 @@
                 <td class=<%=issue.Severity%> style="text-align: center;">
                   <%= image_tag image_icon(issue.Severity), width: '50%' %>
                 </td>
-                <td>
+                <td width="50%">
                   <%=link_to issue.Description, issue_path(issue.objectId), class: 'title_link', title: 'Show' %>
                 </td>
                 <td><%= issue.Project %></td>
-                <td class="hide"><%= issue.createdBy %></td>
-                <td class="hide"><%= issue.assignedTo %></td>
+                <td><%= issue.createdAt.present? ? issue.createdAt.to_time.strftime("%m/%d/%Y") : '-' %></td>
+                <td>
+                  <%= date_issue_resolved(issue.dateResolved) %>
+                </td>
                 <td><%= issue.Status %></td>
                 <td>
                   <%= link_to edit_issue_path(issue.objectId), data_id: issue.objectId, class: 'issue_update', title: "EDIT" do %>

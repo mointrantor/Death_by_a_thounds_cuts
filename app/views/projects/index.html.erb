@@ -2,7 +2,7 @@
 <div class="alert alert-danger" id ="flash_error_message"></div>
 <fieldset class="fieldset">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-3">
+		<div class="col-md-4 col-md-offset-2">
 			<%= form_for @project, class: "form-inline", remote: true do |f| %>
 				<div class="form-group">
 					<label class="" for="input01">Project<span class="required">*</span></label>  
@@ -16,7 +16,7 @@
 				</button>
 			<% end %>
 		</div>
-		<div class="col-md-4" style="overflow: auto; height: 500px; ">
+		<div class="col-md-5" style="overflow: auto; height: 500px; ">
 			<label for="input01">Project List</label>
 			<ul class="list-group" id="project_list_create_form">
 				<% @projects.each do |project|%>

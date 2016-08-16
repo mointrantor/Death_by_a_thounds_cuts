@@ -7,8 +7,8 @@ class User < ParseUser
   validates :password, length: { minimum: 6 }, allow_blank: true
 	validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   
-	EMAILNOTIFYTEST = ["nitish.verma@trantorinc.com","kapil.handa@trantorinc.com"]
-	EMAILNOTIFYMAIN = ["rajat.julka@trantorinc.com","pradeep@trantorinc.com"]
+	EMAILNOTIFYTEST = ['nitish.verma@trantorinc.com', 'moin.haidar@trantorinc.com']
+	EMAILNOTIFYMAIN = ['rajat.julka@trantorinc.com', 'pradeep@trantorinc.com']
 
   def self.active
     User.all.sort_by{|user| user.Name }
