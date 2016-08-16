@@ -21,10 +21,9 @@ module IssuesHelper
     [["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]]
   end
 
-  def date_issue_resolved(date_resolved)
-    return nil if date_resolved.blank?
-    date_resolved = date_resolved.to_date.strftime("%m/%d/%Y") rescue date_resolved if date_resolved.respond_to?(:to_date)
-    date_resolved
+  def date_issue_resolved(issue)
+    return nil if issue.Status != 'RESOLVED'
+    issue.updatedAt.to_date.strftime("%m/%d/%Y")
   end
 
 end

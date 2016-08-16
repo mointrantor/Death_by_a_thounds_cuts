@@ -45,10 +45,10 @@
         <tr style="background-color: #F1EEEE;">
           <th width="5%">Severity</th>
           <th style="width: 75px !important;">Severity</th>
-          <th width="50%">Issue Description</th>
-          <th width="20%">Project</th>
-          <th width="5%">Date Reported</th>
-          <th width="5%">Date Resolved</th>
+          <th width="48%">Issue Description</th>
+          <th width="14%">Project</th>
+          <th width="9%">Reported At</th>
+          <th width="9%">Resolved At</th>
           <th width="7%">Status</th>
           <th width="8%">Action</th>
         </tr>
@@ -72,7 +72,7 @@
                 <td><%= issue.Project %></td>
                 <td><%= issue.createdAt.present? ? issue.createdAt.to_time.strftime("%m/%d/%Y") : '-' %></td>
                 <td>
-                  <%= date_issue_resolved(issue.dateResolved) %>
+                  <%= date_issue_resolved(issue) %>
                 </td>
                 <td><%= issue.Status %></td>
                 <td>
