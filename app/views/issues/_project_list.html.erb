@@ -40,15 +40,15 @@
       </button>
     </div>  
     
-    <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
+    <table class="table no-margin" id='table-issues' cellspacing="0" width='100%' style='font-size: 13px'>
       <thead>
         <tr style="background-color: #F1EEEE;">
           <th width="5%">Severity</th>
           <th style="width: 75px !important;">Severity</th>
-          <th width="48%">Issue Description</th>
+          <th width="45%">Issue Description</th>
           <th width="14%">Project</th>
-          <th width="9%">Reported At</th>
-          <th width="9%">Resolved At</th>
+          <th width="10%">Reported At</th>
+          <th width="10%">Resolved At</th>
           <th width="7%">Status</th>
           <th width="8%">Action</th>
         </tr>
@@ -76,12 +76,12 @@
                 </td>
                 <td><%= issue.Status %></td>
                 <td>
-                  <%= link_to edit_issue_path(issue.objectId), data_id: issue.objectId, class: 'issue_update', title: "EDIT" do %>
-                    <i><%= image_tag "glyphicons_150_edit.png" %></i>
+                  <%= link_to edit_issue_path(issue.objectId), data_id: issue.objectId, class: 'issue_update', title: 'EDIT' do %>
+                    <i><%= image_tag 'glyphicons_150_edit.png', style: 'height: 15px;' %></i>
                   <%end%>
                   <% if current_user.isAdmin %>
-                    <%= link_to  "", data_id: issue.objectId, class: "issue_delete", title: "DELETE" do %>
-                      <i><%= image_tag "glyphicons_207_remove_2.png" %></i>
+                    <%= link_to  '', data_id: issue.objectId, class: 'issue_delete', title: 'DELETE' do %>
+                      <i><%= image_tag 'glyphicons_207_remove_2.png', style: 'height: 13px;' %></i>
                     <% end %>
                   <% end %>
                 </td>
