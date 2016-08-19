@@ -23,11 +23,7 @@
 					<div class="col-sm-12">
 						<label class="" for="input01">Description<span class="required">*</span></label>
 						<div>
-							<% if true #current_user.isAdmin %>
-								<%= f.text_area :Description, required: 'required', class: "cut-area" %>
-							<% else %>
-								<%= @object_issues.Description %>
-							<% end %>
+							<%= f.text_area :Description, required: 'required', class: "cut-area" %>
 						</div>
 					</div>
 				</div>
@@ -45,36 +41,17 @@
 					<div class="col-sm-4">
 						<label class="" for="input01">Severity<span class="required">*</span></label>
 						<div>
-							<%= f.select :Severity, options_for_select(servity,:selected => @object_issues.Severity) %>   
+							<%= f.select :Severity, options_for_select(servity,selected: @object_issues.Severity) %>   
 						</div> 
 					</div>
 				</div>
-
-				<% if false %>
-					<div class="col-sm-12 create_cut_field">
-						<div class="col-sm-12">
-							<label for="input01">Comments</label>
-							<div>
-								<%= text_area_tag "issues[CommentsArray]", nil, rows: "3", cols: "50", style: "width: 100%;" %>
-							</div>
-						</div>
-					</div>
-				<% end -%>
 					
+				<div class="col-sm-12">
 					<div class="col-sm-12">
-						<div class="col-sm-12">
-							<button type="submit" class="btn btn-primary">Update</button>
-							<%= link_to "Cancel", '/', class: "btn btn-primary" %>
-						</div>
+						<button type="submit" class="btn btn-primary">Update</button>
+						<%= link_to "Cancel", '/', class: "btn btn-primary" %>
 					</div>
-
-				<% if false %>
-					<div class="col-sm-12">
-						<% unless @object_issues.CommentsArray.blank? %>
-							<% render partial: 'comments', locals: {comments: @object_issues.CommentsArray } %>
-						<% end %>
-					</div>
-				<% end -%>
+				</div>
 				
 			</div> 
 		<% end %> <!--Form End-->
@@ -83,6 +60,6 @@
 
 <script>
   if(<%= @object_issues.isManagementIssue == true %>) {
-		document.getElementById("issues_assignedTo").disabled=true;
+		document.getElementById("issues_assignedTo").disabled = true;
 	}
 </script>

@@ -70,7 +70,7 @@
                   <%=link_to issue.Description, issue_path(issue.objectId), class: 'title_link', title: 'Show' %>
                 </td>
                 <td><%= issue.Project %></td>
-                <td><%= issue.createdAt.present? ? issue.createdAt.to_time.strftime("%m/%d/%Y") : '-' %></td>
+                <td><%= issue.createdAt.present? ? format_date(issue.createdAt) : '-' %></td>
                 <td>
                   <%= date_issue_resolved(issue) %>
                 </td>

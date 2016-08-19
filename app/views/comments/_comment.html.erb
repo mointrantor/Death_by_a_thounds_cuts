@@ -1,0 +1,10 @@
+<div class='comment'>
+  <div class='head'>
+    <%= comment.user %>
+    •
+    <span><%= time_ago_in_words(comment.created_at) %> ago </span>
+  </div>
+  <div class='description'>
+    <%= simple_format(comment.comment) %>
+  </div>
+</div>

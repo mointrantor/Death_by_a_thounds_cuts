@@ -1,27 +1,48 @@
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">Cut Detail</h3>
+<div class='panel panel-primary'>
+	<div class='panel-heading'>
+		<h3 class='panel-title'>Cut Detail</h3>
 	</div>
-	<div class="panel-body">
-		<div class="control-group">
+	<div class='panel-body'>
+		<div class='control-group'>
 			
-			<% ['Project', 'Description', 'Status', 'Severity'].each do |field| %>
-				<div class="col-sm-12 margin_bottom">
-					<div class="col-sm-12">
-						<label for="input01"><%= field %></label>
-						<div>
-							<%= @object_issues.send(field) %>
+			<div class='col-sm-12'>
+				<%= link_to 'Back', :back, class: 'btn btn-primary' %>
+				<%= link_to 'Edit', edit_issue_path(@object_issues.objectId), class: 'btn btn-info' %>
+			</div>
+			<div class='col-sm-12'>&nbsp;</div>
+			<% show_page_fields.each do |field| %>
+				<div class='col-sm-12 margin-bottom-20'>
+					<div>
+						<label><%= field.first %></label>
+						<div class='wrap-me'>
+							<%= @object_issues.send(field.last) %>
 						</div>
 					</div>
 				</div>
 			<% end -%>
 
-			<div class="col-sm-12">
-				<% unless @object_issues.CommentsArray.blank? %>
-					<% render partial: 'comments', locals: {comments: @object_issues.CommentsArray } %>
-				<% end %>
+			<div class='col-sm-12' id='comments-container'>
+				<h4>Comments</h4>
+				<div id='comment-form'>
+					<%= form_for @comment, remote: true do |f| %>
+						<%= f.hidden_field :issue_id, value: @object_issues.objectId %>
+						<%= f.text_area :comment, rows: 3, style: 'width: 100%', placeholder: 'Your comment...', required: true %>
+						<%= f.submit 'Add Comment', class: 'btn btn-primary' %>
+					<% end -%>
+				</div>
+				<div id='flash-notifications' class="hide">
+				  <div class="alert alert-success alert-dismissable fade in">
+			      <button class="close", "aria-hidden" => "true", "data-dismiss" => "alert">×</button>
+			      Comment Added Successfuly.
+			    </div>
+				</div>
+				<div id='comments'>
+					<% if @comments.present? %>
+						<%= render partial: 'comments/comment', collection: @comments, locals: {show_page: true } %>
+					<% end %>
+				</div>
 			</div>
-		<%= link_to 'Back', :back, class: 'btn btn-primary' %>
+			
 		</div>  
 	</div>
 </div>

@@ -20,10 +20,9 @@
 }
 
 body{
-    background-color: #EEE !important;
-    position: relative;
-    /*padding-top:60px;*/
-    background: url("brushed_alu.png") repeat 0 0;
+  background-color: #EEE !important;
+  position: relative;
+  background: url("brushed_alu.png") repeat 0 0;
 }
 
 

@@ -1,0 +1,12 @@
+<% if @comment %>
+  $("#comment_comment").val('');
+  $('#comments').fadeOut();
+  $('#flash-notifications').addClass('show');
+  $('#comments').prepend("<%= j(render(partial: 'comment', locals: { comment: @comment})) %>");
+  $('#comments').fadeIn(1000);
+  $('#comments').slideDown(1000, 'slow', function(){
+    console.log('Comment added successfully');
+  });
+<% else %>
+  console.error('Something went wrong while saving comment!');
+<% end %>

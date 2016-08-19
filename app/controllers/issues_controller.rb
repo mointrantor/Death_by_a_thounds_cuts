@@ -115,42 +115,45 @@ class IssuesController < ApplicationController
 
 	def show
 		@object_issues = Issues.find_by_objectId(params[:id])
-    
-		if @object_issues.nil?
-			flash[:notice] = "Issue not found"
-			redirect_to issues_path, :notice => "Cut not found"
-		end
-		@users = all_users	
+		redirect_to issues_path, notice: 'Cut not found' if @object_issues.blank?
+    @comment = Comment.new
+    @comments = Comment.where(issue_id: @object_issues.objectId).order('created_at DESC').all
+		@users = all_users
 	end
 
 	def update
 		@object_issues = Issues.find_by_objectId(params[:id])
-		closed_status = (@object_issues.Status == "CLOSED")
-		params[:issues][:isClosed] = params[:issues][:Status] == "CLOSED" ? true : false
-		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
+		closed_status = (@object_issues.Status == 'CLOSED')
+		params[:issues][:isClosed] = params[:issues][:Status] == 'CLOSED' ? true : false
+		params[:issues][:closedBy] = params[:issues][:Status] == 'CLOSED' ? current_user.Name : ''
 
     assigned_user_id = params[:issues][:assignedTo]
-    # Set assigned_to with UserId name.
-    params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
-    params[:issues][:AccountManager] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:AccountManager].blank?
-    params[:issues][:ProjectOwner] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:ProjectOwner].blank?
+    if assigned_user_id.present?
+      assigned_user_name = User.find_by_objectId(assigned_user_id).Name
+      params[:issues][:assignedTo] = assigned_user_name
+      params[:issues][:AccountManager] = assigned_user_name unless params[:issues][:AccountManager].blank?
+      params[:issues][:ProjectOwner] = assigned_user_name unless params[:issues][:ProjectOwner].blank?
+    else
+      params[:issues][:assignedTo] = 'RAJAT JULKA'
+    end
 
-		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
-		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
-		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == "1" ? true : false
-		comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
-		if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?
-			params[:issues][:CommentsArray] = comment
-		elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?	
-			# params[:issues][:CommentsArray] = @object_issues.CommentsArray
-			params[:issues].delete :CommentsArray
-		elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && !params[:issues][:CommentsArray].blank?
-			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
-		elsif (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?
-			# params[:issues][:CommentsArray] = []
-			params[:issues].delete :CommentsArray
-		end	
-		params[:issues][:lastUpdatedBy] = current_user.Name
+		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == '1' ? true : false
+		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == '1' ? true : false
+
+		# comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
+		# if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?
+		# 	params[:issues][:CommentsArray] = comment
+		# elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?	
+		# 	# params[:issues][:CommentsArray] = @object_issues.CommentsArray
+		# 	params[:issues].delete :CommentsArray
+		# elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && !params[:issues][:CommentsArray].blank?
+		# 	params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
+		# elsif (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?
+		# 	# params[:issues][:CommentsArray] = []
+		# 	params[:issues].delete :CommentsArray
+		# end	
+		
+    params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		
@@ -163,8 +166,8 @@ class IssuesController < ApplicationController
 				# UserNotifier.send_update_notification_mail(@object_issues).deliver!
 			end
 		end
-		# @serverty, @closed  = category(@issues)	
-		redirect_to issues_path(:project => params[:project])
+
+		redirect_to issues_path(project: params[:project])
 	end
 
 

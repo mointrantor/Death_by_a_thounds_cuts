@@ -9,23 +9,12 @@ ParseRailsBoilerplate::Application.routes.draw do
     collection do
       match :manage, via: [:get, :post]
     end
-
-    member do
-      get :assign_projects
-    end
+    member { get :assign_projects }
   end
   
   resources :projects do
     member do
       get :archive
-    end
-  end
-
-  namespace :api do
-    resources :mailers do
-      collection do
-        post :send_mail
-      end
     end
   end
   
@@ -34,6 +23,16 @@ ParseRailsBoilerplate::Application.routes.draw do
   		get :fetch_issue, :pdf_report, :report, :fetch_issue_report, :sample_issues_csv
       post :upload_issues
   	end
+  end
+
+  resources :comments
+
+  namespace :api do
+    resources :mailers do
+      collection do
+        post :send_mail
+      end
+    end
   end
 
   root to: "issues#index"

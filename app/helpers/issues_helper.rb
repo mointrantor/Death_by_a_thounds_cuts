@@ -26,4 +26,15 @@ module IssuesHelper
     issue.updatedAt.to_date.strftime("%m/%d/%Y")
   end
 
+  def show_page_fields
+    [
+      ['Project', 'Project'], 
+      ['Description', 'Description'], 
+      ['Status', 'Status'], 
+      ['Severity', 'Severity'], 
+      ['Date Identified', 'dateIdentified'], 
+      ['Date Resolved', 'dateResolved']
+    ]
+  end
+
 end
