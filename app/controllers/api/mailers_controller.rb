@@ -8,7 +8,7 @@ module Api
   	def send_mail
   		case request.format
     	when Mime::XML, Mime::ATOM, Mime::JSON
-			 render json: {:status => 'ok'}
+			 render json: {status: 'ok'}
     	end
   	end
 

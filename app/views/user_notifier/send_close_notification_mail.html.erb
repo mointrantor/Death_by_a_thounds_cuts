@@ -6,19 +6,3 @@ Description : <%=@object_data.Description%><br/>
 Status : <%=@object_data.Status%><br/>
 Severity : <%=@object_data.Severity%><br/>
 MitigationPlan : <%=@object_data.mitigationPlan%><br/>
-<br/>
-<% if !@object_data.CommentsArray.nil?  %>	
-<% if !@object_data.CommentsArray.blank?%>
-	Following is the audit trail.
-	<br/><br/>
-	<%@object_data.CommentsArray.each do |comment|%>
-		Note :<%= simple_format(comment[0]) %>
-		<%= comment[1] %>
-		<br/><hr/>
-	<%end%>
-<%else%>
-	No audit trail available.
-<%end%>
-<%else%>
-	No audit trail available.
-<%end%>

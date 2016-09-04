@@ -3,18 +3,3 @@
 The details are:<br/>
 Title : <%=@object_data.title%><br/>
 Description: <%=@object_data.Description%><br/><br/>
-<% if !@object_data.CommentsArray.nil?  %>	
-<% if !@object_data.CommentsArray.blank?%>
-	Following is the audit trail.
-	<br/><br/>
-	<%@object_data.CommentsArray.each do |comment|%>
-		Note :<%= simple_format(comment[0]) %>
-		<%= comment[1] %>
-		<br/><hr/>
-	<%end%>
-<%else%>
-	No audit trail available.
-<%end%>
-<%else%>
-	No audit trail available.
-<%end%>

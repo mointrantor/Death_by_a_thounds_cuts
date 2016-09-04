@@ -11,14 +11,14 @@ module IssuesHelper
 
   def status
     [
-      ["OPEN","OPEN"],
-      ["CLOSED","CLOSED"],
-      ["RESOLVED","RESOLVED"]
+      ['OPEN','OPEN'],
+      ['CLOSED','CLOSED'],
+      ['RESOLVED','RESOLVED']
     ]
   end
 
   def servity
-    [["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]]
+    ['LOW','LOW'],['MEDIUM','MEDIUM'],['HIGH','HIGH']
   end
 
   def date_issue_resolved(issue)

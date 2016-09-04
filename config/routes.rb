@@ -26,7 +26,7 @@ ParseRailsBoilerplate::Application.routes.draw do
   end
 
   resources :comments
-
+  
   namespace :api do
     resources :mailers do
       collection do

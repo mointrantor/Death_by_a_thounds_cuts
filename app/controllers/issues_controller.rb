@@ -19,10 +19,7 @@ class IssuesController < ApplicationController
       issue_query
     end
     @serverty, @closed  = category(@issues)
-		#@projects = all_projects @issues # Moin - remove if all well
-		#@users = all_users # Moin - remove if all well
 	end	
-
 
 	def fetch_issue
 		@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project])
@@ -233,11 +230,11 @@ class IssuesController < ApplicationController
     end
   end	
 
-  def send_mail object
+  def send_mail(object)
   	UserNotifier.send_close_notification_mail(object).deliver!
   end	
 
-  def setupdata params
+  def setupdata(params)
   	if params[:project] == "ALL"
   		@issues = issue_query
   		@issues.select{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
@@ -269,7 +266,7 @@ class IssuesController < ApplicationController
   def check_read
   	@read_issues = []
   	read_iss = WebRead.find_all_by_user_id(current_user.objectId)
- 	@read_issues = read_iss.map(&:issues_id) if !read_iss.blank?
+ 	  @read_issues = read_iss.map(&:issues_id) if !read_iss.blank?
   end	
 
   def mark_read
@@ -277,23 +274,22 @@ class IssuesController < ApplicationController
   	WebRead.create(:user_id => current_user.objectId, :issues_id => params[:id] ) if read_issues.nil?
   end	
 
-  def mark_unread id
-	read_issues = WebRead.find_all_by_issues_id id
-	read_issues.select!{|s| s.user_id != current_user.objectId}
-	WebRead.destroy_all(read_issues) unless read_issues.blank?
+  def mark_unread(id)
+  	read_issues = WebRead.find_all_by_issues_id id
+  	read_issues.select!{|s| s.user_id != current_user.objectId}
+  	WebRead.destroy_all(read_issues) unless read_issues.blank?
   end	
 
-  def send_notification type, object, assigned_user_id
+  def send_notification(type, object, assigned_user_id)
   	data =  if type == "create"
-  		{ :alert => "Cut #{object.title} for project #{object.Project} has been created by user #{object.createdBy}" }
+  		{alert: "Cut #{object.title} for project #{object.Project} has been created by user #{object.createdBy}"}
   	elsif type == "update"
-  		{ :alert => "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
+  		{alert: "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
   	elsif type == "delete"
-  		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
+  		{alert: "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
   	end	
   	
   	push = Parse::Push.new(data)
-
   	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', assigned_user_id)
   	push.where = query.where
   	push.save
