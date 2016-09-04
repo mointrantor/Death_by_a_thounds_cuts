@@ -41,7 +41,16 @@
 					<div class="col-sm-4">
 						<label class="" for="input01">Severity<span class="required">*</span></label>
 						<div>
-							<%= f.select :Severity, options_for_select(servity,selected: @object_issues.Severity) %>   
+							<%= f.select :Severity, options_for_select(servity,selected: @object_issues.Severity) %>
+						</div> 
+					</div>
+				</div>
+
+				<div class="col-sm-12 create_cut_field">
+					<div class="col-sm-12">
+						<label class="" for="input01">Resolution</label>
+						<div>
+							<%= f.text_area :resolution, class: "cut-area" %>
 						</div> 
 					</div>
 				</div>

@@ -47,7 +47,6 @@ class IssuesController < ApplicationController
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:createdBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
-		params[:issues][:CommentsArray] = []
 		@issue = Issues.new(params[:issues])
 
 		if @issue.save
@@ -139,19 +138,6 @@ class IssuesController < ApplicationController
 
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == '1' ? true : false
 		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == '1' ? true : false
-
-		# comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
-		# if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?
-		# 	params[:issues][:CommentsArray] = comment
-		# elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?	
-		# 	# params[:issues][:CommentsArray] = @object_issues.CommentsArray
-		# 	params[:issues].delete :CommentsArray
-		# elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && !params[:issues][:CommentsArray].blank?
-		# 	params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
-		# elsif (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?
-		# 	# params[:issues][:CommentsArray] = []
-		# 	params[:issues].delete :CommentsArray
-		# end	
 		
     params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	

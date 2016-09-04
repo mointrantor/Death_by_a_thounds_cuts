@@ -32,8 +32,9 @@ module IssuesHelper
       ['Description', 'Description'], 
       ['Status', 'Status'], 
       ['Severity', 'Severity'], 
-      ['Date Identified', 'dateIdentified'], 
-      ['Date Resolved', 'dateResolved']
+      ['Date Reported', 'dateIdentified'], 
+      ['Date Resolved', 'dateResolved'],
+      ['Resolution', 'resolution']
     ]
   end
 

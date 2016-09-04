@@ -1,6 +1,6 @@
 class Issues < ParseResource::Base
 	 
-  fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :CommentsArray, :title, :isManagementIssue, :IssueType, :isClientIssue, :ProjectOwner, :AccountManager
+  fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :title, :isManagementIssue, :IssueType, :isClientIssue, :ProjectOwner, :AccountManager, :resolution
 
   validates :Description, :Severity, presence: true
 
@@ -48,10 +48,8 @@ class Issues < ParseResource::Base
     row["assignedTo"] = row["assignedTo"].blank? ? 'RAJAT JULKA' : row["assignedTo"].strip.upcase!
 
     row["createdBy"] = current_userName
-    row["CommentsArray"] = []
 
     # Create the record for the issue.
-    debugger
     issue = Issues.new(row) 
     raise 'Headers/values are not in proper format' and return unless issue.save
   end

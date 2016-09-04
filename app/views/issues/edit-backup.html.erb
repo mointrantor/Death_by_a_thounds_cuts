@@ -138,39 +138,6 @@
 				  <%=f.check_box :isClientIssue %>
 			</div>
 			</div>
-			<div class="col-sm-12 create_cut_field"> 
-				<div class="col-sm-8">
-					<label class="" for="input01">Comments<span style="color: #FF0000;padding: 4px;">*</span></label>  
-					<div class="">
-						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50", :style => "width: 100%;", :required => 'required' %>
-					</div>
-				</div>
-				<!-- <div class="col-sm-4">
-
-				</div> -->
-				<div class="col-sm-4">
-					<button type="submit" class="btn btn-primary"  style="margin-top: 23px;" >Update</button>
-					<%=link_to "Cancel" , '/' , :class => "btn btn-primary" , :style =>"margin-top: 23px;"%>
-				</div>
-				
-			</div>   
-			<div class="col-sm-12 create_cut_field" style="margin-left: 15px;"> 
-				<div class="">
-				<% if !@object_issues.CommentsArray.nil?  %>	
-					<% if !@object_issues.CommentsArray.blank?  %>
-					<h4 style="padding: 7px;background: #CCC;">Audit Trails</h4>
-					<%(@object_issues.CommentsArray.reverse).each do |comment|%>
-					<%data = comment[1].split(' ')%>
-					<span ><span style = "color: #428BCA;">Audit Trail For :</span><b><%= "#{data[4]} #{data[5]}" %></b></span><br/>
-					<span ><span style = "color: #428BCA;">Created By      :</span> <b><%= "#{data[2]}" %></b></span><br/>
-					<span ><span style = "color: #428BCA;float: left;margin-right: 5px;">Note		 	  		 :</span> <%= simple_format(comment[0]) %></span>
-					<hr/>
-					<%end%>
-					<%end%>
-				<%end%>	
-				</div>
-			</div> 
-
 		</div>  
 		<%end%>  
 	</div>

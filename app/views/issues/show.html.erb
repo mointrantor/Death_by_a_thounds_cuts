@@ -7,7 +7,7 @@
 			
 			<div class='col-sm-12'>
 				<%= link_to 'Back', :back, class: 'btn btn-primary' %>
-				<%= link_to 'Edit', edit_issue_path(@object_issues.objectId), class: 'btn btn-info' %>
+				<%= link_to 'Edit', edit_issue_path(@object_issues.objectId, project: 'ALL'), class: 'btn btn-info' %>
 			</div>
 			<div class='col-sm-12'>&nbsp;</div>
 			<% show_page_fields.each do |field| %>
@@ -15,7 +15,8 @@
 					<div>
 						<label><%= field.first %></label>
 						<div class='wrap-me'>
-							<%= @object_issues.send(field.last) %>
+							<%- field_value = @object_issues.send(field.last) %>
+							<%= field_value.blank? ? 'Not Available' : field_value %>
 						</div>
 					</div>
 				</div>
