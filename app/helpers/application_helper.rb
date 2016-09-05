@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def options_for_users_select
-    User.active.map{|user| [user.Name, user.objectId] }.unshift(['Please Select', ''])
+    User.active.map{|user| [user.Name.titleize, user.objectId] }.unshift(['Please Select', ''])
   end
 
   def format_date(dt)
