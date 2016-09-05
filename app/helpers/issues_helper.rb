@@ -31,10 +31,7 @@ module IssuesHelper
       ['Project', 'Project'], 
       ['Description', 'Description'], 
       ['Status', 'Status'], 
-      ['Severity', 'Severity'], 
-      ['Date Reported', 'createdAt'], 
-      ['Date Resolved', 'dateResolved'],
-      ['Resolution', 'resolution']
+      ['Severity', 'Severity']
     ]
   end
 

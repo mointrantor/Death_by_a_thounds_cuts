@@ -10,6 +10,7 @@
 				<%= link_to 'Edit', edit_issue_path(@object_issues.objectId, project: 'ALL'), class: 'btn btn-info' %>
 			</div>
 			<div class='col-sm-12'>&nbsp;</div>
+			
 			<% show_page_fields.each do |field| %>
 				<div class='col-sm-12 margin-bottom-20'>
 					<div>
@@ -21,6 +22,31 @@
 					</div>
 				</div>
 			<% end -%>
+
+			<div class='col-sm-12 margin-bottom-20'>
+				<div>
+					<label>Date Reported</label>
+					<div class='wrap-me'>
+						<%= @object_issues.createdAt.present? ? format_date(@object_issues.createdAt) : '-' %>
+					</div>
+				</div>
+			</div>
+			<div class='col-sm-12 margin-bottom-20'>
+				<div>
+					<label>Date Resolved</label>
+					<div class='wrap-me'>
+						<%= date_issue_resolved(@object_issues) %>
+					</div>
+				</div>
+			</div>
+			<div class='col-sm-12 margin-bottom-20'>
+				<div>
+					<label>Resolution</label>
+					<div class='wrap-me'>
+						<%= @object_issues.resolution %>
+					</div>
+				</div>
+			</div>
 
 			<div class='col-sm-12' id='comments-container'>
 				<h4>Comments</h4>
