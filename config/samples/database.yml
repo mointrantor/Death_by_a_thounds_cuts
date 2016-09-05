@@ -1,0 +1,16 @@
+defaults: &defaults
+  adapter: mysql2
+  host: localhost
+  username: yourdbusername
+  password: yourdbpassword
+
+development:
+  <<: *defaults
+  database: dbtc_dev
+
+test: &test
+  <<: *defaults
+  database: dbtc_test
+
+production:
+  database: dbtc_prod

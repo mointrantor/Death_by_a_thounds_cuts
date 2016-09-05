@@ -28,17 +28,15 @@ ParseRailsBoilerplate::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
-
-  # ActionMailer::Base.smtp_settings = {
-  #     :address        => 'smtp.gmail.com',
-  #     :port           => '587',
-  #     :authentication => :plain,
-  #     :user_name      => 'dbtc.chd.trantorinc@gmail.com',
-  #     :password       => 'welcomeDBTC',
-  #     :domain         => 'gmail.com'
-  # }
-  # ActionMailer::Base.delivery_method ||= :smtp
-
-  config.action_mailer.default_url_options = {:host => 'dbtc.trantorinc.com'}
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost' }
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    user_name:            ENV['DBTC_GMAIL_UNAME'],
+    password:             ENV['DBTC_GMAIL_PWD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 end

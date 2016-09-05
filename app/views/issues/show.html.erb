@@ -28,7 +28,7 @@
 					<%= form_for @comment, remote: true do |f| %>
 						<%= f.hidden_field :issue_id, value: @object_issues.objectId %>
 						<%= f.text_area :comment, rows: 3, style: 'width: 100%', placeholder: 'Your comment...', required: true %>
-						<%= f.submit 'Add Comment', class: 'btn btn-primary' %>
+						<%= f.submit 'Add Comment', class: 'btn btn-primary', disable_with: 'Please Wait...' %>
 					<% end -%>
 				</div>
 				<div id='flash-notifications' class="hide">

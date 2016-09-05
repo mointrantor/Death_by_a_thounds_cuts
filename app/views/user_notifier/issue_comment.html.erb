@@ -1,0 +1,25 @@
+<%= @receiver.short_name %>,
+<br/>
+<br/>
+
+<b>Project:</b>
+<br/>
+<%= @project.ProjectName %>
+<br/><br />
+
+<b>Cut:</b>
+<br/>
+<%= @issue.Description %>
+<br/><br />
+
+<b>Comment:</b>
+<br/>
+<%= @comment.comment %>
+<br /><br />
+<%= link_to 'View this on DBTC', issue_url(@issue.objectId) %>
+<br /><br />
+
+<br/>
+Thanks,
+<br />
+Team DBTC

@@ -29,34 +29,42 @@ class IssuesController < ApplicationController
 
 	def create
 		@issues = []
-		params[:issues][:isClosed] = params[:issues][:isClosed] == "true" ? true : false
-		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "true" ? true : false
-		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == "true" ? true : false
+		params[:issues][:isClosed] = params[:issues][:isClosed] == 'true' ? true : false
+		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == 'true' ? true : false
+		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == 'true' ? true : false
 		params[:issues][:isDeleted] = false
-
-    assigned_user_id = params[:issues][:assignedTo]
     params[:issues][:AccountManager] = params[:issues][:AccountManager]
 		params[:issues][:ProjectOwner] = params[:issues][:ProjectOwner]
+    params[:issues][:createdBy] = current_user.Name
+    params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
+    
+    if params[:issues][:assignedTo].present?
+      assigned_user_id = User.find_by_objectId(params[:issues][:assignedTo])
+      params[:issues][:assignedTo] = (user ? user.Name : 'RAJAT JULKA')
+    else
+      params[:issues][:assignedTo] = 'RAJAT JULKA'
+    end
 
-    # Set assigned_to with UserId name.
-    params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
+    # TODO - Dirty hack for project_id, replace it handling entire project based on project_id instead of name
+    if params[:issues][:Project].present? || params[:project].present?
+      project_name = params[:issues][:Project] || params[:project]
+      project = Project.find_by(ProjectName: project_name)
+      params[:issues][:project_id] = project.objectId if project
+    end
 
-		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
-		params[:issues][:createdBy] = current_user.Name
-		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
 		@issue = Issues.new(params[:issues])
-
 		if @issue.save
-			# @issues = issue_query params[:issues][:Project]
-			send_mail @issue if params[:issues][:Status] == "CLOSED"
 			send_notification "create", @issue, assigned_user_id
-			# UserNotifier.send_create_notification_mail(@issue).deliver!
-			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
-			@serverty, @closed  = category(@issues)
-		else
-			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
-			@serverty, @closed  = category(@issues)
+      project = Project.find_by(ProjectName: @issue.Project) unless project
+      users_projects = UsersProjects.where(ProjectId: project.objectId)
+      users_projects = users_projects.reject {|up| up.UserId == current_user.objectId }
+      users = users_projects.collect { |up| up.UserId }
+      users.each do |user|
+        UserNotifier.new_cut(@issue, project, user, current_user).deliver
+      end
 		end
+    @issues = params[:project] == 'ALL' ? issue_query : issue_query(params[:project]) if params[:project]
+    @serverty, @closed  = category(@issues)
 		format_create response
 	end
 
@@ -96,9 +104,9 @@ class IssuesController < ApplicationController
 
     send_data File.read(file_path), :filename => 'upload_cuts_sample_format.xlsx', :disposition => 'attachment'
 
-  # spreadsheet = StringIO.new 
-  # book.write spreadsheet 
-  # send_data spreadsheet.string, :filename => "yourfile.xls", :type =>  "application/vnd.ms-excel"
+    # spreadsheet = StringIO.new 
+    # book.write spreadsheet 
+    # send_data spreadsheet.string, :filename => "yourfile.xls", :type =>  "application/vnd.ms-excel"
 	end
 
 	def edit

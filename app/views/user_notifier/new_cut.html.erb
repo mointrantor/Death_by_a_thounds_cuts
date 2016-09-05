@@ -1,0 +1,14 @@
+<%= @receiver.short_name %>,
+<br/>
+<br/>
+
+<b><%= @creator.short_name %></b> has created a cut for <b><%= @project.ProjectName %></b>:
+<br/><br/>
+<%= @issue.Description %>
+<br/><br />
+<%= link_to 'View this on DBTC', issue_url(@issue.objectId) %>
+<br /><br />
+
+Thanks,
+<br />
+Team DBTC

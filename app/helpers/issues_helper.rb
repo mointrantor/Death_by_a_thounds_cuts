@@ -18,7 +18,7 @@ module IssuesHelper
   end
 
   def servity
-    ['LOW','LOW'],['MEDIUM','MEDIUM'],['HIGH','HIGH']
+    [['LOW','LOW'],['MEDIUM','MEDIUM'],['HIGH','HIGH']]
   end
 
   def date_issue_resolved(issue)

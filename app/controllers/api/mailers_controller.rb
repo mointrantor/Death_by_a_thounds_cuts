@@ -11,8 +11,7 @@ module Api
 			 render json: {status: 'ok'}
     	end
   	end
-
-
+    
     def send_thirdparty_mail
       json_body = JSON.parse(params.first[0])
       UserNotifier.send_mobile_notification_mail(json_body['header'], json_body['body']).deliver!
