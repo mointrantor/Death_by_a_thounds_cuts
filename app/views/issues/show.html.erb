@@ -43,7 +43,7 @@
 				<div>
 					<label>Resolution</label>
 					<div class='wrap-me'>
-						<%= @object_issues.resolution %>
+						<%= @object_issues.resolution.present? ? @object_issues.resolution : 'Not Available' %>
 					</div>
 				</div>
 			</div>

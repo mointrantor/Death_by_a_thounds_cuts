@@ -22,7 +22,7 @@ module IssuesHelper
   end
 
   def date_issue_resolved(issue)
-    return nil if issue.Status != 'RESOLVED'
+    return 'Not Yet' if issue.Status != 'RESOLVED'
     issue.updatedAt.to_date.strftime("%m/%d/%Y")
   end
 
