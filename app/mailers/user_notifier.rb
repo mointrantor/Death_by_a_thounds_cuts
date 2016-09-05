@@ -9,8 +9,7 @@ class UserNotifier < ActionMailer::Base
     @issue = issue
     @project = project
     @receiver = User.find_by(objectId: receiver_id)
-    mail(to: 'moin.haidar@trantorinc.com', subject: "#{@comment.user} has posted a comment about #{project.ProjectName}")
-    #mail(to: @receiver.email, subject: "#{@comment.user} has posted a comment about #{project.ProjectName}")
+    mail(to: @receiver.email, subject: "#{@comment.user} has posted a comment about #{project.ProjectName}")
   end
 
   def new_cut(issue, project, receiver_id, creator)
@@ -18,8 +17,7 @@ class UserNotifier < ActionMailer::Base
     @creator = creator
     @project = project
     @receiver = User.find_by(objectId: receiver_id)
-    mail(to: 'moin.haidar@trantorinc.com', subject: "#{@creator.short_name} has added a cut for #{project.ProjectName}")
-    #mail(to: @receiver.email, subject: "#{@user.short_name} has added a cut for #{project.ProjectName}")
+    mail(to: @receiver.email, subject: "#{@creator.short_name} has added a cut for #{project.ProjectName}")    
   end
 
   def send_create_notification_mail object

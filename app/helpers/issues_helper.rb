@@ -32,7 +32,7 @@ module IssuesHelper
       ['Description', 'Description'], 
       ['Status', 'Status'], 
       ['Severity', 'Severity'], 
-      ['Date Reported', 'dateIdentified'], 
+      ['Date Reported', 'createdAt'], 
       ['Date Resolved', 'dateResolved'],
       ['Resolution', 'resolution']
     ]
